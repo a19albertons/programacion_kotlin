@@ -1,62 +1,48 @@
 // Controla el descubrimiento del mapa
-fun descubrir_mapa2(x:Int, y:Int, tablero: MutableList<StringBuilder>):Boolean {
+fun descubrir_mapa(x:Int, y:Int, tablero: MutableList<StringBuilder>):Boolean {
 //    Control de limites
     if (x !in tablero.indices || y !in tablero[x].indices) return false
 //    no eres casilla sin probar
     if (tablero[x][y]!='-')return false
 
+//    Momento/Instruccion que controla si esta posicion tiene
+//    o no una mina con la funcion de comprobar_alrededor
     tablero[x][y]=comprobar_alrededor(x,y,tablero)
 
+//    Si sale una sola mina impide que siga este camino
     if (tablero[x][y]==' '){
-        //    arriba-izquierda
-        if (x - 1 in tablero.indices && y - 1 in tablero[x].indices) {
-            descubrir_mapa(x - 1, y - 1, tablero)
-        }
+//    arriba-izquierda
+        descubrir_mapa(x - 1, y - 1, tablero)
 
 //    arriba
-        if (x - 1 in tablero.indices && y in tablero[x].indices) {
-            descubrir_mapa(x - 1, y, tablero)
-        }
+        descubrir_mapa(x - 1, y, tablero)
 
 //    arriba-derecha
-        if (x - 1 in tablero.indices && y + 1 in tablero[x].indices) {
-            descubrir_mapa(x - 1, y + 1, tablero)
-        }
+        descubrir_mapa(x - 1, y + 1, tablero)
 
 //    izquierda
-        if (x in tablero.indices && y - 1 in tablero[x].indices) {
-            descubrir_mapa(x, y - 1, tablero)
-        }
+        descubrir_mapa(x, y - 1, tablero)
 
 //    derecha
-        if (x in tablero.indices && y + 1 in tablero[x].indices) {
-            descubrir_mapa(x, y + 1, tablero)
-        }
+        descubrir_mapa(x, y + 1, tablero)
 
 //    abajo-izquierda
-        if (x + 1 in tablero.indices && y - 1 in tablero[x].indices) {
-            descubrir_mapa(x + 1, y - 1, tablero)
-        }
+        descubrir_mapa(x + 1, y - 1, tablero)
 
 //    abajo
-        if (x + 1 in tablero.indices && y in tablero[x].indices) {
-            descubrir_mapa(x + 1, y, tablero)
-        }
+        descubrir_mapa(x + 1, y, tablero)
 
 //    abajo-derecha
-        if (x + 1 in tablero.indices && y + 1 in tablero[x].indices) {
-            descubrir_mapa(x + 1, y + 1, tablero)
-        }
-   }
-
-
+        descubrir_mapa(x + 1, y + 1, tablero)
+    }
 
     return false
 }
+
 //Controla las minas alrededor de una posicon dada. Si alguna casilla
 // el numero de minas no coincide con el esperado esta aqui el
 // problema ya ha sucedido
-fun comprobar_alrededor2(x:Int, y:Int, tablero:MutableList<StringBuilder>):Char {
+fun comprobar_alrededor(x:Int, y:Int, tablero:MutableList<StringBuilder>):Char {
     var contador_minas= 0
 //    superior izquierda
     if (x-1 in tablero.indices && y-1 in tablero[x].indices && tablero[x-1][y-1]=='*') {
@@ -96,6 +82,9 @@ fun comprobar_alrededor2(x:Int, y:Int, tablero:MutableList<StringBuilder>):Char 
     if (x + 1 in tablero.indices && y + 1 in tablero[x].indices && tablero[x + 1][y + 1] == '*') {
         contador_minas++
     }
+
+//    Devuelve o no un valor numerico dependiendo
+//    de lo que indica el contador de minas
     return if (contador_minas!=0) {
         contador_minas.toString().first()
     }
@@ -128,9 +117,13 @@ fun main() {
             val posicion= readln().split(" ")
             val posicion_x=posicion[0].toInt()-1
             val posicion_y=posicion[1].toInt()-1
+
+//            Controla si una posicion dada es una bomba
             if (tablero[posicion_x][posicion_y]=='*'){
                 boom=true
             }
+
+//            Descubre el mapa
             descubrir_mapa(posicion_x, posicion_y,tablero)
         }
 
@@ -143,7 +136,8 @@ fun main() {
             tablero[i]=StringBuilder(nueva_linea)
         }
 
-//        Controla si has dado en una mina o no
+//        Controla el mensaje ha devolver en funcion de si
+//        has dado en una mina o no
         if (boom) {
             println("GAME OVER")
         }
@@ -152,8 +146,6 @@ fun main() {
                 println(i)
             }
         }
-
-
 
         entrada= readlnOrNull()
     }

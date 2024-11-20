@@ -1,4 +1,4 @@
-fun pintarpiscina2(x: Int, y: Int, tablero: MutableList<StringBuilder>): Boolean {
+fun pintarpiscina(x: Int, y: Int, tablero: MutableList<StringBuilder>): Boolean {
 //    Fuera de indice
     if (x !in tablero.indices || y !in tablero[x].indices) return false
 //        Es tabique

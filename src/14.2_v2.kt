@@ -34,7 +34,7 @@ fun main(){
         entrada= readlnOrNull()
     }
 }
-fun alcolmilenario2(x: Int, y:Int, tablero: MutableList<StringBuilder>): Boolean{
+fun alcolmilenario(x: Int, y:Int, tablero: MutableList<StringBuilder>): Boolean{
 //    No esta dentro de rango
     if (x !in tablero.indices || y !in tablero[x].indices) return false
 //    Es un asteriode u otra marca futura

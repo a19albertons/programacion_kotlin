@@ -1,4 +1,4 @@
-fun hayCamino3(i: Int, j: Int, laberinto: List<MutableList<Char>>): String {
+fun hayCamino(i: Int, j: Int, laberinto: List<MutableList<Char>>): String {
     var ruta = mutableListOf<String>()
     var resultado=""
     hayCamino2(i,j,laberinto,ruta)
@@ -7,7 +7,7 @@ fun hayCamino3(i: Int, j: Int, laberinto: List<MutableList<Char>>): String {
     }
     return resultado
 }
-fun hayCamino4(i: Int, j:Int, laberinto: List<MutableList<Char>>, ruta: MutableList<String>): Boolean {
+fun hayCamino2(i: Int, j:Int, laberinto: List<MutableList<Char>>, ruta: MutableList<String>): Boolean {
 
 //    Fuera de indices
     if (i !in laberinto.indices || j !in laberinto[i].indices) return false
