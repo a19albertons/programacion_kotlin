@@ -20,16 +20,13 @@ fun juego_de_reinas(k: Int, l:Int, tablero: MutableList<MutableList<Char>>): Boo
     return false
 }
 
-//Lo que esta comentado de bucles es "optimización"
 fun  comprobador_reina(i:Int, j:Int, tablero: MutableList<MutableList<Char>>): Boolean{
-//    Arriba-izquierda
     var devolver=true
     var contador= 1
 
-    //    arriba
-    while (devolver==true && i-contador in tablero.indices){
+    while (devolver==true && i-contador >= 0){
 //        arriba izquierda
-        if (j-contador in tablero[i-contador].indices && tablero[i-contador][j-contador]=='Q') {
+        if (j-contador >= 0 && tablero[i-contador][j-contador]=='Q') {
             devolver=false
         }
 //        arriba
@@ -37,7 +34,7 @@ fun  comprobador_reina(i:Int, j:Int, tablero: MutableList<MutableList<Char>>): B
             devolver=false
         }
 //        arriba derecha
-        if (j+contador in tablero[i-contador].indices && tablero[i-contador][j+contador]=='Q') {
+        if (j+contador <= tablero.lastIndex && tablero[i-contador][j+contador]=='Q') {
             devolver=false
         }
         contador++
@@ -51,24 +48,20 @@ fun main () {
 //        Creacion de tablero
 //        Posiciones base más a la izquierda
         val y=0
-        for (x in 0 until entrada) {
+        val x=0
+        val tablero =MutableList(entrada) {MutableList(entrada){'.'}}
 
-
-            val tablero =MutableList(entrada) {MutableList(entrada){'.'}}
-
-            if (juego_de_reinas(x,y,tablero)) {
-                for (i in tablero.indices){
-                    for (j in tablero[i].indices){
-                        print(tablero[i][j]+"  ")
-                    }
-                    println()
-                }
-                println("========================================")
-//                Llamesele optimización
-                break
+        juego_de_reinas(x,y,tablero)
+        for (i in tablero.indices){
+            for (j in tablero[i].indices){
+                print(tablero[i][j]+"  ")
             }
-
+            println()
         }
+        println("========================================")
+
+
+
 //        print(entrada)
 
         entrada= readln().toInt()
